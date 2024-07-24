@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm/utils/routes/routes.dart';
+import 'package:flutter_mvvm/utils/routes/routes_name.dart';
+import 'package:flutter_mvvm/view/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,27 +16,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: HomePage(),
+      initialRoute: RoutesName.login,
+      onGenerateRoute: Routes.genrateRoute,
     );
   }
 }
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-   return Scaffold(appBar: AppBar(
-     title: Text("Flutter MVVM"),
-     centerTitle: true,
-     backgroundColor: Colors.blue,
-     titleTextStyle: TextStyle(fontSize: 30),
-
-   ),);
-  }
-}
-
-
-
