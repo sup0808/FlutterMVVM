@@ -19,9 +19,9 @@ class Utils{
    showFlushbar(context: context,
        flushbar: Flushbar(
          message: message,
-         backgroundColor: Colors.red,
-         title: "Happy",
-         messageColor: Colors.blue,
+         backgroundColor: Colors.blue,
+         title: "Login",
+         messageColor: Colors.white,
          duration: Duration(seconds: 3),
        )..show(context)
    );

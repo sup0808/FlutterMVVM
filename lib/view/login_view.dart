@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/utils/routes/routes.dart';
 import 'package:flutter_mvvm/utils/routes/routes_name.dart';
 import 'package:flutter_mvvm/utils/utils.dart';
@@ -21,7 +22,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height*1;
+    final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
       appBar: AppBar(
         title: Text("Login"),
@@ -69,13 +70,22 @@ class _LoginViewState extends State<LoginView> {
                                 : Icons.visibility))),
                   );
                 }),
-            SizedBox(height: height*.1),
-            OutlinedButton(
-              onPressed: () {
-                Utils.showSnackBar("Login Click", context);
-              },
-              child: Text("Login"),
-            )
+            SizedBox(height: height * .1),
+            RoundButton(
+                title: "Login",
+                onPress: () {
+                  if (emailCtr.text.isEmpty) {
+                    Utils.flushBarErrorMessage("Please enter email", context);
+                  } else if (passwordCtr.text.isEmpty) {
+                    Utils.flushBarErrorMessage("Please enter password", context);
+                  }
+                  else if (passwordCtr.text.length<6) {
+                    Utils.flushBarErrorMessage("Please enter 6 digit password", context);
+                  }
+                  else{
+                    Utils.flushBarErrorMessage("Api call", context);
+                  }
+                })
           ],
         ),
       ),
