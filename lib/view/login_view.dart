@@ -3,6 +3,9 @@ import 'package:flutter_mvvm/res/components/round_button.dart';
 import 'package:flutter_mvvm/utils/routes/routes.dart';
 import 'package:flutter_mvvm/utils/routes/routes_name.dart';
 import 'package:flutter_mvvm/utils/utils.dart';
+import 'package:provider/provider.dart';
+
+import '../viewmodel/auth_viewmodel.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -18,10 +21,22 @@ class _LoginViewState extends State<LoginView> {
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
 
-  ValueNotifier<bool> _obscureText = ValueNotifier(false);
+  final ValueNotifier<bool> _obscureText = ValueNotifier(false);
+
+  @override
+  void dispose() {
+
+    super.dispose();
+    emailCtr.dispose();
+    passwordCtr.dispose();
+    emailFocus.dispose();
+    passwordFocus.dispose();
+    _obscureText.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewmodel>(context);
     final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
       appBar: AppBar(
@@ -73,6 +88,7 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(height: height * .1),
             RoundButton(
                 title: "Login",
+                loading: authViewModel.loading,
                 onPress: () {
                   if (emailCtr.text.isEmpty) {
                     Utils.flushBarErrorMessage("Please enter email", context);
@@ -83,7 +99,12 @@ class _LoginViewState extends State<LoginView> {
                     Utils.flushBarErrorMessage("Please enter 6 digit password", context);
                   }
                   else{
+                    Map data = { // for testing api call
+                      "email": emailCtr.text.toString(), //eve.holt@reqres.in
+                      "password": passwordCtr.text.toString() //cityslicka
+                    };
                     Utils.flushBarErrorMessage("Api call", context);
+                    authViewModel.loginApi(data,context);
                   }
                 })
           ],
