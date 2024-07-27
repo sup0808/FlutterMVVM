@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm/res/components/round_button.dart';
-import 'package:flutter_mvvm/utils/routes/routes.dart';
-import 'package:flutter_mvvm/utils/routes/routes_name.dart';
-import 'package:flutter_mvvm/utils/utils.dart';
 import 'package:provider/provider.dart';
 
+import '../res/components/round_button.dart';
+import '../utils/utils.dart';
 import '../viewmodel/auth_viewmodel.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class SignupView extends StatefulWidget {
+  const SignupView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignupView> createState() => _SignupViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SignupViewState extends State<SignupView> {
   TextEditingController emailCtr = TextEditingController();
   TextEditingController passwordCtr = TextEditingController();
 
@@ -39,7 +37,7 @@ class _LoginViewState extends State<LoginView> {
     final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("Signup"),
         centerTitle: true,
         backgroundColor: Colors.blue,
         titleTextStyle: TextStyle(fontSize: 25),
@@ -86,8 +84,8 @@ class _LoginViewState extends State<LoginView> {
                 }),
             SizedBox(height: height * .1),
             RoundButton(
-                title: "Login",
-                loading: authViewModel.loading,
+                title: "Signup",
+                loading: authViewModel.signuploading,
                 onPress: () {
                   if (emailCtr.text.isEmpty) {
                     Utils.flushBarErrorMessage("Please enter email", context);
@@ -104,15 +102,12 @@ class _LoginViewState extends State<LoginView> {
                       "password": passwordCtr.text.toString() //cityslicka
                     };
                     Utils.flushBarErrorMessage("Api call", context);
-                    authViewModel.loginApi(data, context);
+                    authViewModel.signupApi(data, context);
                   }
                 }),
             SizedBox(height: height * .02),
-            InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, RoutesName.signup);
-                },
-                child: Text("Don't have account? Signup"))
+            InkWell(child: Text("Already have account? Login"))
+
           ],
         ),
       ),

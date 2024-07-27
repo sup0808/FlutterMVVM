@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mvvm/utils/routes/routes_name.dart';
 import 'package:flutter_mvvm/view/home_screen.dart';
 import 'package:flutter_mvvm/view/login_view.dart';
+import 'package:flutter_mvvm/view/signup_view.dart';
 
 class Routes {
   static Route<dynamic> genrateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RoutesName.home:
-        return MaterialPageRoute(builder: (context) => HomeScreen());
+        return MaterialPageRoute(builder: (context) => const HomeScreen());
 
       case RoutesName.login:
-        return MaterialPageRoute(builder: (context) => LoginView());
+        return MaterialPageRoute(builder: (context) => const LoginView());
+
+      case RoutesName.signup:
+        return MaterialPageRoute(builder: (context) => const SignupView());
 
       default:
         return MaterialPageRoute(builder: (_) {
